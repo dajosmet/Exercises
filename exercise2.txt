@@ -1,0 +1,43 @@
+Exercise 2
+
+UNF
+Not all key attributes are assigned.
+DB(staffNo,dentistName,patientNo,patientName,appointment,surgeryNo)
+
+1NF
+Data in 1NF, all key attributes are assigned and there are no repeating groups
+DB(staffNo,dentistName,patientNo,patientName,appointmentDate,appointmentTime,surgeryNo)
+
+A primary key needs to be assigned. Because there is no unique key a combination of keys is selected as primary key.
+
+staffNo + appointment(appointmentDate) is selected as primary key.
+
+DB(<staffNo>,dentistName,patientNo,patientName,<appointmentDate>,<appointmentTime>,surgeryNo)
+
+2NF
+No partial dependencies: each attribute depends on the entire primary key.
+dentistName: depends only on staffNo. Not ok
+patientNo: depends on entire primary key. ok
+patientName: depends on entire primary key. ok
+appointmentTime: depends only on appointment.Date. Not ok
+surgeryNo: depends on entire primary key. ok
+
+Dentist(<staffNo>, dentistName)
+DB(<staffNo>,<appointmentDate>,<appointmentTime>,patientNo,patientName,surgeryNo)
+
+3NF
+No transitive dependencies (non-key attribute depends on another non-key attribute)
+PatientName depends on patientNo. Not ok
+
+Dentist(<staffNo>, dentistName)
+Patient(<patientNo>,patientName)
+DB(<staffNo>,<appointmentDate>,<appointmentTime>,patientNo,surgeryNo)
+
+3BCNF
+Every determinant is a primary key.
+dentistName is a determinant and a candidate key. Ok
+patientName is a determinant and a candidate key. Ok
+patientNo is a determinant and a candidate key. Ok
+surgeryNo is not a determinant. Ok
+
+3NF=3BCNF
