@@ -4,3 +4,8 @@ mkdir Exercises
 cd Exercises
 git init
 la
+git remote add origin https://github.com/dajosmet/Exercises.git
+git remote
+git add exercise1.txt
+git commit -m 'exercise1 was added to the repository'
+git push origin master
