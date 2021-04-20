@@ -1,0 +1,46 @@
+Exercise 3
+
+UNF
+
+Unstructured form, rpeating groups
+
+DB(patientNo,patientName,wardNo,wardName,bedNo, [(drugNo,drugName,drugDescr,drugDose,drugAdmin,drugUpd,dateStart,dateEnd)])
+
+1NF
+
+No repeating groups, all key attributes are assigned. A primary key is defined.
+DB(*patientNo*,patientName,wardNo,wardName,bedNo,*drugNo*,drugName,drugDescr,drugDose,drugAdmin,drugUpd,*dateStart*,dateEnd)
+
+2NF
+
+No partial dependencies.
+patientName,wardNo,wardName,bedNo only depend on patientNo. Not ok. Split up
+drugName,drugDescr,drugDose,drugAdmin only depend on drugNo. Not ok. Split up
+drugUpd, dateEnd depend on the entire primary key. ok
+
+Patient(*patientNo*,patientName,wardNo,wardName,bedNo)
+Drug(*drugNo*,drugName,drugDescr,drugDose,drugAdmin)
+Treatment(*patientNo*,*drugNo*,*dateStart*,dateEnd,drugUpd)
+
+3NF
+
+No transitive dependencies (non-key attribute depends on another non-key attribute).
+wardName depends on wardNo. Not ok, split up
+
+Patient(*patientNo*,patientName, wardNo, bedNo)
+Ward(*wardNo*,wardName)
+Drug(*drugNo*,drugName,drugDescr,drugDose,drugAdmin)
+Treatment(*patientNo*,*drugNo*,*dateStart*,dateEnd,drugUpd)
+
+3BCNF
+
+Each determinant is a candidate key.
+PatientName is a determinant and candidate key. Ok
+bedNo is not a determinant. Ok
+drugName is a determinant and candidate key. Ok
+drugDescr,drugDose,drugAdmin are no determinants. ok
+drugUpd, dateEnd are no determinants. Ok
+
+3NF=3BCNF
+
+
