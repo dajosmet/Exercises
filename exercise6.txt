@@ -1,0 +1,35 @@
+Exercise 6
+
+select concat(stdFirstName,' ',stdLastName) as Name, stdCity, stdGPA from student where stdGPA >= 3.7;
+
+select concat(FacFirstName,' ',FacLastName) as Name, FacHireDate from faculty where FacHireDate between '1999-01-01' and '2000-12-31';
+
+select offering.OfferNo, offering.CourseNo, offering.FacSSN, offering.OffTerm, offering.OffYear from offering where (offering.OffTerm = 'FALL' and offering.OffYear = '2005') or (offering.OffTerm = 'WINTER' and offering.OffYear = 2006);
+
+select offering.OfferNo, offering.CourseNo, course.crsDesc, offering.OffDays, offering.OffTime, offering.OffTerm, offering.OffYear from offering join course on course.courseNo = offering.CourseNo where (course.crsDesc rlike 'database' or course.crsDesc rlike 'programming') and (offering.OffTerm = 'SPRING' and offering.OffYear = 2006);
+
+select offering.OfferNo, offering.CourseNo, offering.OffTerm, offering.OffYear, concat(faculty.FacFirstName,' ',faculty.FacLastName) as instructor_name, faculty.FacRank from offering join course on course.CourseNo = offering.CourseNo join faculty on faculty.FacSSN = offering.FacSSN where faculty.FacRank = 'ASST' and offering.OffTerm = 'FALL' and offering.OffYear = 2005 and course.CourseNo like 'IS%';
+
+select student.stdMajor, avg(stdGPA) from student group by stdMajor;
+
+select count(offering.OfferNo) as no_offerings, count(distinct(offering.CourseNo)) as no_unique_courses, offering.OffYear from offering group by offering.OffYear;
+
+select student.stdMajor, avg(stdGPA) from student where student.stdClass = 'JR' or student.stdClass = 'SR' group by student.stdMajor;
+and
+select student.stdMajor, avg(stdGPA) as avg_GPA from student where (student.stdClass = 'JR' or student.stdClass = 'SR') group by student.stdMajor having avg(stdGPA) > 3.1;
+
+select student.stdMajor, student.stdClass, min(student.stdGPA) as min_GPA, max(student.stdGPA) as max_GPA from student group by student.stdMajor, student.stdClass;
+
+select count(offering.OfferNo) as no_oferings, course.CourseNo, course.crsDesc from course join offering on offering.CourseNo=course.CourseNo where course.CourseNo like 'IS%' group  by course.crsDesc;
+
+select stdGPA, concat(stdFirstName,' ',stdLastName) as Name, stdClass, stdState, stdCity from student where stdClass = 'JR' order by stdGPA asc;
+
+select distinct FacCity, FacState from faculty;
+
+select concat(student.stdFirstName,' ',student.stdLastName) as name, offering.OfferNo, student.stdGPA from enrollment join offering on enrollment.OfferNo=offering.OfferNo join student on student.StdSSN = enrollment.StdSSN where student.stdGPA >= 3.5;
+
+select distinct concat(student.stdFirstName,' ',student.stdLastName) as name, student.stdGPA, offering.OfferNo, offering.CourseNo from enrollment join offering on offering.OfferNo = enrollment.OfferNo join student on student.StdSSN = enrollment.StdSSN where student.stdGPA >= 3.5;
+
+select concat(student.stdFirstName,' ',student.stdLastName) as name, EnrGrade, offering.OfferNo, offering.CourseNo from enrollment join offering on offering.OfferNo = enrollment.OfferNo join student on student.StdSSN = enrollment.StdSSN where enrollment.EnrGrade >= 3.5 group by concat(student.stdFirstName,' ',student.stdLastName);
+
+select student.stdFirstName, student.stdLastName, course.CourseNo, course.crsDesc, offering.OfferNo, offering.OffDays, offering.OffTime, offering.OffLocation, faculty.FacFirstNAme, faculty.FacLastname from offering join course on course.CourseNo=offering.CourseNo join faculty on faculty.FacSSN=offering.FacSSN join enrollment on enrollment.OfferNo=offering.OfferNo join student on student.stdSSN=enrollment.StdSSN where student.stdFirstName='Bob' and student.stdLastName='Norbert';
