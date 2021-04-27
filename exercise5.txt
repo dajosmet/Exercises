@@ -1,0 +1,33 @@
+Exercise 5
+
+select guestname, guestaddress from guest where guestaddress rlike 'London' order by guestname asc;
+
+select * from room where type = 'single' or type = 'family' and price < 40 order by price asc;
+
+select * from booking where dateto is null;
+
+select avg(price) as average_price from room;
+or
+select hotelno, avg(price) as average_price from room group by hotelno;
+ 
+select type, sum(price) as total_price from room where type = 'double';
+
+select distinct(guestno), datefrom from booking where datefrom like '2020-08%';
+
+select hotel.hotelname, room.type, room.price from room join hotel on hotel.hotelno = room.hotelno where hotelname = 'The Tower Hotel';
+
+select distinct(guest.guestname), hotel.hotelname from booking join guest on booking.guestno=guest.guestno join hotel on hotel.hotelno=booking.hotelno where hotel.hotelname='The Tower Hotel';
+
+select guest.guestname, room.roomno, room.type, room.price, hotel.hotelname, booking.datefrom from booking join guest on booking.guestno=guest.guestno join hotel on hotel.hotelno=booking.hotelno join room on room.roomno=booking.roomno where booking.dateto is not null;
+
+select hotel.hotelname, sum(room.price) as total_income_today from booking join room on room.roomno=booking.roomno join hotel on hotel.hotelno=booking.hotelno where hotel.hotelname='The Tower Hotel' and dateto = 2021-04-23 and dateto is not null;
+
+select room.roomno, hotel.hotelname from booking join room on room.roomno=booking.roomno join hotel on hotel.hotelno=booking.hotelno where datefrom >2021-04-22 and dateto<2021-04-24 and hotel.hotelname='The Tower Hotel';
+
+select sum(price) as lost_income, hotel.hotelname from booking join room on room.roomno=booking.roomno join hotel on hotel.hotelno=booking.hotelno where datefrom >2021-04-22 and dateto<2021-04-24 and hotel.hotelname='The Tower Hotel';
+
+select count(room.roomno) as room_count, hotel.hotelname, hotel.city from room join hotel on hotel.hotelno=room.hotelno group by hotel.hotelname having hotel.city='London';
+
+select room.roomno, count(room.roomno) as booking_count, hotel.hotelname, hotel.city from booking join hotel on hotel.hotelno=booking.hotelno join room on room.roomno=booking.roomno group by hotel.hotelname having hotel.city='London';
+
+update room set price = price*1.05;
