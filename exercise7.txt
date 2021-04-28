@@ -1,0 +1,35 @@
+Exercise 7
+
+mongoimport --db=mydb --collection=restaurants --file=restaurants.json
+
+mongo
+
+show dbs
+
+use mydb
+
+show collections
+
+db.restaurants.find().limit(1)
+
+db.restaurants.find({}, {name:1, borough:1, cuisine:1, restaurant_id:1})
+
+db.restaurants.find({borough:'Bronx'}, {name:1, borough:1, cuisine:1, restaurant_id:1}).limit(5).skip(5)
+
+db.restaurants.find({"grades.score":{$gt:90}})
+
+db.restaurants.find({cuisine:{$ne:'American'},grades:{$elemMatch:{score:{$gt:70}}}, "coord.0":{$lt:-65.754168}})
+
+db.restaurants.find({borough:'Bronx', cuisine:{$in:['American', 'Chinese']}})
+
+db.restaurants.find({borough:{$nin:['Staten Island','Queens','Bronx','Brooklyn']}},{name:1, borough:1, cuisine:1, restaurant_id:1})
+
+db.restaurants.find({"grades.score":{$not:{$gt:10}}},{name:1, borough:1, cuisine:1, restaurant_id:1, grades:1})
+
+db.restaurants.find({grades:{$elemMatch:{grade:"A",score:11,date:ISODate("2014-08-11T00:00:00Z")}}},{restaurant_id:1, name:1, grades:1}).pretty()
+
+db.restaurants.find({},{name:1, cuisine:1, borough:1}).sort({cuisine:1, borough:-1})
+
+db.restaurants.find().count()
+db.restaurants.find({"address.street":{$exists:1}}).count()
+db.restaurants.find({"address.street":{$exists:0}}).count()
